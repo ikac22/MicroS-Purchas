@@ -1,0 +1,6 @@
+Flask==2.3.2
+flask_sqlalchemy==3.0.5
+flask_migrate==4.0.4
+flask_script==2.0.6
+pymysql==1.1.0
+sqlalchemy_utils==0.41.1
