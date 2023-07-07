@@ -10,3 +10,9 @@ services:
     image: adminer
     ports:
       - 8080:8080
+  auth-database:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3307:3306
