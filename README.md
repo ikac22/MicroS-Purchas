@@ -3,16 +3,16 @@
 
 Micros-Purchas is an app written for university class called Infrastructure for Electronic Business.
 The application has 3 types of users:
-  - Buyers:
+  - __Buyers__:
     - search for products
     - order products
     - pay for order
     - mark order as delivered
-  - Owners:
+  - __Owners__:
     - create new products
     - get product statistics
     - get products category statistics
-  - Couriers:
+  - __Couriers__:
     - take products for delivery
     - search for waiting orders
 
@@ -20,10 +20,10 @@ Couriers and Buyers must register and login on system before interacting with it
 Every user can delete own account.
 
 The app is consiting of 4 services:
-  - Authentication service: responsible for authenticating user. (User is then identified via Json Web Token)
-  - Buying service: responsible for handling buyers actions
-  - Order management service: responsible for handling couriers actions
-  - Product management service: responsible for handling owners actions
+  - __Authentication service__: responsible for authenticating user. (User is then identified via Json Web Token)
+  - __Buying service__: responsible for handling buyers actions
+  - __Order management service__: responsible for handling couriers actions
+  - __Product management service__: responsible for handling owners actions
 
 # Data
 
