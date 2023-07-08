@@ -1,3 +1,7 @@
+from datetime import timedelta
+
 
 class Configuration:
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost/authentication"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@localhost:3307/authentication"
+    JWT_SECRET_KEY = "JWT_SECRET_KEY"
+    JWT_TOKEN_EXPIRES = timedelta(hours=1)
