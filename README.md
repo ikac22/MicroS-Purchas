@@ -25,22 +25,22 @@ The app is consiting of 4 services:
   - __Order management service__: responsible for handling couriers actions
   - __Product management service__: responsible for handling owners actions
 
-# Data
+## Data
 
 The data is separated in two databases:
   - Authentication database
   - Product and Order database
 
-# Containarization
+## Containarization
 
 All services are realised using __docker containers__ aswell as databases and paying system(ethernium blockchain).
 Services can all be started using docker-compose(using deployment.yml).
 
-# Statistics query
+## Statistics query
 
 Pruduct statistics aswel as Category statistics are calculated using paralellization in the __Spark Cluster__ of containers.
 
-# Paying system
+## Paying system
 
 Paying is realised through smart contracts using __Ethernium Blockchain__.
 
