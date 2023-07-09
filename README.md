@@ -1,9 +1,10 @@
 # MicroS-Purchas 
 (srb. mikros-purćas)
 
+Micros-Purchas is an app written for university class called Infrastructure for Electronic Business.
+
 ## Users
 
-Micros-Purchas is an app written for university class called Infrastructure for Electronic Business.
 The application has 3 types of users:
   - __Buyers__:
     - search for products
