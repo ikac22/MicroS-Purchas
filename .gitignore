@@ -1,6 +1,6 @@
 venv
 migrations
-authentication/migrations
+*/migrations
 .idea
 __pycache__
-authentication/__pycache__
+*/__pycache__

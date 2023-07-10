@@ -1,13 +1,13 @@
 from flask import Flask, request, Response, jsonify
 from configuration import Configuration
-from models import *
+from authModels import *
 from sqlalchemy import and_
 from flask_migrate import Migrate
 from sqlalchemy_utils import database_exists, create_database
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import re
 from utils import error_msg
-from auth_utils import require_auth
+from utils.auth_utils import require_auth
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
@@ -21,7 +21,7 @@ migrate = Migrate(app, database)
 
 @app.route("/register/<role>", methods=["POST"])
 def register(role):
-    if not role or type not in ("currier", "buyer"):
+    if not role or role not in ("currier", "buyer"):
         return Response("Not Found", status=404)
 
     nd = {
@@ -78,7 +78,7 @@ def login():
     additional_claims = {
         "surname": user.surname,
         "forename": user.forename,
-        "role": user.role
+        "roles": [user.role]
     }
 
     access_token = create_access_token(identity=user.email, additional_claims=additional_claims)

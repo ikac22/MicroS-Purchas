@@ -1,6 +1,6 @@
 version: '3'
 services:
-  database:
+  shop-database:
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
