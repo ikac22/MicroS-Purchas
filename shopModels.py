@@ -57,7 +57,7 @@ class OrderStat(database.Model):
     created = database.Column(database.DateTime, nullable=False)
     bemail = database.Column(database.String(256), nullable=False)
     products = database.relationship("ProductOrder", back_populates="order")
-
+    address = database.Column(database.String(256))
     def to_dict(self):
         return {
             "products": [prod.to_dict() for prod in self.products],

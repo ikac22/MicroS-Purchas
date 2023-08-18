@@ -1,5 +1,5 @@
 from flask import Flask, request, Response, jsonify
-from configuration import Configuration
+from config.authConfig import Configuration
 from authModels import *
 from sqlalchemy import and_
 from flask_migrate import Migrate
@@ -12,16 +12,12 @@ from utils.auth_utils import require_auth
 app = Flask(__name__)
 app.config.from_object(Configuration)
 
-if not database_exists(Configuration.SQLALCHEMY_DATABASE_URI):
-    create_database(Configuration.SQLALCHEMY_DATABASE_URI)
-
 database.init_app(app)
-migrate = Migrate(app, database)
 
 
-@app.route("/register/<role>", methods=["POST"])
+@app.route("/register_<role>", methods=["POST"])
 def register(role):
-    if not role or role not in ("currier", "buyer"):
+    if not role or role not in ("courier", "customer"):
         return Response("Not Found", status=404)
 
     nd = {

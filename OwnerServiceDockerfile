@@ -1,0 +1,13 @@
+FROM service-base
+LABEL authors="Eliyah"
+
+WORKDIR /app
+COPY ownerService/* ./ownerService/
+COPY utils/* ./utils/
+COPY config/shopConfig.py ./config/
+COPY shopModels.py ./
+
+COPY solidity/output/* ./solidity/output/
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["flask","--app","/app/ownerService/app.py","run","--host", "0.0.0.0", "--port", "5000"]

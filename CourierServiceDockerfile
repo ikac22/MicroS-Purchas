@@ -1,0 +1,13 @@
+FROM service-base:latest
+LABEL authors="Eliyah"
+
+WORKDIR /app
+COPY courierService/* ./courierService/
+COPY utils/* ./utils/
+COPY config/shopConfig.py ./config/
+COPY shopModels.py ./
+
+COPY solidity/output/* ./solidity/output/
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["flask","--app","/app/courierService/app.py","run","--host", "0.0.0.0", "--port", "5000"]]

@@ -1,6 +1,6 @@
 from flask import Flask, request, Response, jsonify
 from flask_jwt_extended import JWTManager
-from configuration import Configuration
+from config.shopConfig import Configuration
 from shopModels import *
 from flask_migrate import Migrate
 from sqlalchemy_utils import database_exists, create_database
@@ -8,16 +8,14 @@ from utils import error_msg
 from utils.auth_utils import require_auth, role_check
 import csv
 import io
+import requests
+import os
 
 app = Flask(__name__)
 app.config.from_object(Configuration)
 
-if not database_exists(Configuration.SQLALCHEMY_DATABASE_URI):
-    create_database(Configuration.SQLALCHEMY_DATABASE_URI)
 
 database.init_app(app)
-migrate = Migrate(app, database)
-
 
 jwt = JWTManager(app=app)
 @app.route("/update", methods=["POST"])
@@ -25,7 +23,7 @@ jwt = JWTManager(app=app)
 @require_auth
 def add_product():
     if "file" not in request.files:
-        return error_msg("Field file missing.")
+        return error_msg("Field file is missing.")
 
     content = request.files["file"].stream.read().decode("utf-8")
     csv_reader = csv.reader(io.StringIO(content))
@@ -37,7 +35,7 @@ def add_product():
 
         try:
             price = float(row[2])
-        except ValueError:
+        except Exception:
             return error_msg(f"Incorrect price on line {i}.")
         if price <= 0:
             return error_msg(f"Incorrect price on line {i}.")
@@ -56,16 +54,29 @@ def add_product():
             cat_map[k] = cat
         else:
             database.session.add(val)
+            database.session.commit()
 
     for prod in products:
         for cat_name in prod[0]:
             prod[1].categories.append(cat_map[cat_name])
 
-    database.session.add_all(map(lambda x: x[1], products))
-    database.session.commit()
+        database.session.add(prod[1])
+        database.session.commit()
+    #database.session.add_all(mac(lambda x: x[1], products))
+    #database.session.commit()
 
     return Response(status=200)
 
+@app.route("/category_statistics", methods=["GET"])
+@role_check("owner")
+@require_auth
+def category_statistics():
+    r = requests.get(f"http://{os.environ.get('SPARKAPP_URL') or 'localhost:5004'}:5000/cat_stat")
 
-
-
+    return Response(r.content,  status=200, content_type="application/json")
+@app.route("/product_statistics", methods=["GET"])
+@role_check("owner")
+@require_auth
+def product_statistics():
+    r = requests.get(f"http://{os.environ.get('SPARKAPP_URL') or 'localhost'}:5000/prod_stat")
+    return Response(r.content, status=200, content_type="application/json")

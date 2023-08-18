@@ -1,0 +1,12 @@
+FROM service-base:latest
+LABEL authors="Eliyah"
+
+WORKDIR /app
+COPY authService/* ./authService/
+COPY utils/* ./utils/
+COPY config/authConfig.py ./config/
+COPY authModels.py ./
+
+ENV PYTHONPATH=/app
+
+ENTRYPOINT ["flask","--app","/app/authService/app.py","run", "--host", "0.0.0.0", "--port", "5000"]

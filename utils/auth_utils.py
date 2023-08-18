@@ -24,7 +24,7 @@ def role_check(role):
             if "roles" in claims and role in claims["roles"]:
                 return function(*arguments, **kwarguments)
             else:
-                return error_msg("Permission denied.", status=403)
+                return error_msg("Missing Authorization Header", status=401)
 
         return decorator
 

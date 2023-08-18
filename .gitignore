@@ -1,6 +1,8 @@
 venv
-migrations
+shopMigrations
 */migrations
 .idea
 __pycache__
 */__pycache__
+auth_data
+shop_data
